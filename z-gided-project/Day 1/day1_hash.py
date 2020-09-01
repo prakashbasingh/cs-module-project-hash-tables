@@ -54,13 +54,15 @@ def put(key, value):   # O(1) over the size of the hash table
 	table[index] = value
 
 def get(key):
+    # getting the key
 	index = get_index(key)
-
+	# returning the value associated with that key
 	return table[index]
 
 def delete(key):
+    # getting the key
 	index = get_index(key)
-
+	# setting valuew to None for that kee(deleting)
 	table[index] = None
 
 #print(table)

@@ -22,12 +22,11 @@ class HashTable:
 
     def __init__(self, capacity):
         # Your code here
-        self.capacity = capacity
+        self.capacity = MIN_CAPACITY
+        capacity = self.capacity
         self.table = [None] * capacity
         self.sum = 0
         
-        if capacity < MIN_CAPACITY:
-            capacity = MIN_CAPACITY
  
 
     def get_num_slots(self):
@@ -70,8 +69,7 @@ class HashTable:
 
         Implement this, and/or FNV-1.
         
-        unsigned long
-        hash(unsigned char *str)
+        unsigned long hash(char *str)
         {
             unsigned long hash = 5381;
             int c;
@@ -85,8 +83,10 @@ class HashTable:
         # Your code here
         hash_value = 5381
         
-        for byte in key:
-            hash_value = (hash_value * 33) + ord(byte)
+        for c in key:
+            # hash_value = ((hash_value << 5) + hash_value) + ord(c)
+            #  OR
+            hash_value = (hash_value * 33) + ord(c)
             
         return hash_value
         
@@ -114,7 +114,6 @@ class HashTable:
         # Store the value at that slot
         self.table[index] = value
 
-
     def delete(self, key):
         """
         Remove the value stored with the given key.
@@ -124,8 +123,9 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # getting the key
         index = self.hash_index(key)
-        
+        # setting value to None for that key(deleting)
         self.table[index] = None
 
 
@@ -138,8 +138,9 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # getting the key
         index = self.hash_index(key)
-        
+        # returning the value associated with that key
         return self.table[index]
 
 
