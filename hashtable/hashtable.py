@@ -134,38 +134,43 @@ class HashTable:
             self.resize(self.capacity * 2)
  
         
-    # def delete(self, key):
-    #     """
-    #     Remove the value stored with the given key.
-    #     Print a warning if the key is not found.
-    #     Implement this.
-    #     """
-    #     # Your code here
-    #     # getting the key
-    #     index = self.hash_index(key)
-        
-    #     if self.table[index] is None:
-    #         return None
-    #     else:
-    #         cur = self.table[index]
-    #         prev = None
-            
-    #         #searching key in tho loop
-    #         while cur.key != key and cur.next != None:
-    #             prev = cur
-    #             cur = cur.next
-    #         if cur.key == key:
-    #             if prev is None:
-    #                 self.table[index] = cur.next
-    #             else:
-    #                 prev.next = cur.next
+    def delete(self, key):
+        """
+        Remove the value stored with the given key.
+        Print a warning if the key is not found.
+        Implement this.
+        """
+        # Your code here
+        # getting the key
+        index = self.hash_index(key)
+        cur = self.table[index]
+ 
+        if cur.key == key: # if first element/ head is to be deleted
+            if cur.next == None: # if there is no other items
+                self.table[index] = None # deleting the head
+                self.sum -= 1 # decrementing the item count
+            else: # if there are other items
+                new_head = cur.next # this will set new-head as the second item
+                cur.next = None # removing the pointer from old head to the second item(new_head now)
+                cur = new_head # this will assign current to the new_head
+                self.sum -= 1 # decrementing the item count
+        else: # if key is not the head or not found
+            if cur == None: # if there is no entry
+                return None
+            else:
+                prev = None
+                # while loop- looking through all the items 
+                while cur.next != None and cur.key != key:
+                    prev = cur # current key is now previous item
+                    cur = cur.next # the next item becomes the current item
+                if cur.key == key: # if key is found
+                    prev.next = cur.next # it removes the references/pointer to the key
+                    self.sum -= 1 # decrementing the item count
+                    return cur.value
+                else: # if there is no key
+                    return None
+                     
                     
-    #             if self.table[index] is None:
-    #                 self.sum -= 1
-                
-    #             if self.get_load_factor() < 0.2:
-
-
     def get(self, key):
         """
         Retrieve the value stored with the given key.
@@ -176,7 +181,13 @@ class HashTable:
         # getting the key
         index = self.hash_index(key)
         # returning the value associated with that key
-        return self.table[index]
+        current = self.table[index]
+        
+        while current != None: # if there is items in the list
+            if current.key == key: # if key is there at hte index
+                return current.value # returns the value
+            current = current.next # 
+        return None # if there is no key at the index
 
 
     def resize(self, new_capacity):
@@ -187,22 +198,16 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        #copying prev table content to new one
-        prev_table = self.table
-        #setting self capacity to new capacity
-        self.capacity = new_capacity
-        #allowing self table to multiply with its capacity
-        self.table = [None] * new_capacity
+        prev_table = self.table #copying prev table content to new one
+        self.capacity = new_capacity #setting self capacity to new capacity
+        self.table = [None] * new_capacity #allowing self table to multiply with its capacity
         # looping through the entries of the previous table
         for i in range(len(prev_table)):
             # if there is key/value in the table index
             if prev_table[i] is not None:
-                #setting prev table index as cur
-                cur = prev_table[i]
-                # now adding the content in the new resized table
-                self.put(cur.key, cur.value)
-                # it will allow to advance to new content
-                cur = cur.next          
+                cur = prev_table[i] #setting prev table index as cur
+                self.put(cur.key, cur.value) # now adding the content in the new resized table
+                cur = cur.next # it will allow to advance to new content          
     
             
 
