@@ -62,7 +62,7 @@ def get(key):
 def delete(key):
     # getting the key
 	index = get_index(key)
-	# setting valuew to None for that kee(deleting)
+	# setting value to None for that key(deleting)
 	table[index] = None
 
 #print(table)

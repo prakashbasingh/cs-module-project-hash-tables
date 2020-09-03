@@ -21,8 +21,9 @@ class HashTable:
     """
 
     def __init__(self, capacity):
-        # Your code here          
-        self.capacity = capacity
+        # Your code here
+        self.capacity = MIN_CAPACITY
+        capacity = self.capacity
         self.table = [None] * capacity
         self.sum = 0
         
@@ -39,7 +40,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        return self.capacity
+        return self.sum
 
 
     def get_load_factor(self):
@@ -49,7 +50,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        return self.sum / self.capacity
+        return self.sum/self.capacity
 
     def fnv1(self, key):
         """
@@ -110,66 +111,30 @@ class HashTable:
         # Your code here
         # Which slot (aka index) in the table is the value going?
         index = self.hash_index(key)
- 
-        # checking if cur index has something, if nothing then
-        if self.table[index] == None:
-            self.table[index] = HashTableEntry(key, value) # if there is nothing then it will create a new entry
-            self.sum += 1 # keeping track of entry
-        # if cur index has something then
-        else:
-            cur_node = self.table[index]
-            # looping through the table
-            while cur_node is not None:
-                if cur_node.key == key: # checking if key is already there
-                    cur_node.value = value # overriding the previous value
-                    return
-                # checking if cur_node key is equal to key
-                if cur_node.next == None:
-                    cur_node.next = HashTableEntry(key, value) # adding new entry
-                    self.sum +=1
-                    return
-                cur_node = cur_node.next    
-        # now checking load factor and if necessary need to double the capacity of the table
-        if self.get_load_factor() > 0.7:
-            self.resize(self.capacity * 2)
- 
-        
-    # def delete(self, key):
-    #     """
-    #     Remove the value stored with the given key.
-    #     Print a warning if the key is not found.
-    #     Implement this.
-    #     """
-    #     # Your code here
-    #     # getting the key
-    #     index = self.hash_index(key)
-        
-    #     if self.table[index] is None:
-    #         return None
-    #     else:
-    #         cur = self.table[index]
-    #         prev = None
-            
-    #         #searching key in tho loop
-    #         while cur.key != key and cur.next != None:
-    #             prev = cur
-    #             cur = cur.next
-    #         if cur.key == key:
-    #             if prev is None:
-    #                 self.table[index] = cur.next
-    #             else:
-    #                 prev.next = cur.next
-                    
-    #             if self.table[index] is None:
-    #                 self.sum -= 1
-                
-    #             if self.get_load_factor() < 0.2:
+        # Store the value at that slot
+        self.table[index] = value
+
+    def delete(self, key):
+        """
+        Remove the value stored with the given key.
+
+        Print a warning if the key is not found.
+
+        Implement this.
+        """
+        # Your code here
+        # getting the key
+        index = self.hash_index(key)
+        # setting value to None for that key(deleting)
+        self.table[index] = None
 
 
     def get(self, key):
         """
         Retrieve the value stored with the given key.
+
         Returns None if the key is not found.
+
         Implement this.
         """
         # Your code here
@@ -187,24 +152,6 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        #copying prev table content to new one
-        prev_table = self.table
-        #setting self capacity to new capacity
-        self.capacity = new_capacity
-        #allowing self table to multiply with its capacity
-        self.table = [None] * new_capacity
-        # looping through the entries of the previous table
-        for i in range(len(prev_table)):
-            # if there is key/value in the table index
-            if prev_table[i] is not None:
-                #setting prev table index as cur
-                cur = prev_table[i]
-                # now adding the content in the new resized table
-                self.put(cur.key, cur.value)
-                # it will allow to advance to new content
-                cur = cur.next          
-    
-            
 
 
 
