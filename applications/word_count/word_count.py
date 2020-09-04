@@ -1,5 +1,19 @@
 def word_count(s):
     # Your code here
+    ignore_characters = ('"', "'", ":", ";", ",", ".", "-", "+", "=", "/", "\\", "|", "[", "]", "{", "}", "(", ")", "*", "^", "&", "?")
+    chaching = {}
+    
+    for i in ignore_characters:
+        s = s.replace(i, "$$")
+        
+    s = s.lower().split()
+    for word in s:
+        if word in chaching:
+            chaching[word] += 1
+        else:
+            chaching[word] = 1
+    return chaching   
+
 
 
 

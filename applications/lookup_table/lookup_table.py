@@ -14,7 +14,7 @@ def slowfun_too_slow(x, y):
 
     return v
 
-store_num = {}
+chaching = {}
 
 def slowfun(x, y):
     """
@@ -22,17 +22,17 @@ def slowfun(x, y):
     output, but completes quickly instead of taking ages to run.
     """
     # Your code here
-    if (x, y) in store_num: # if key and value in store_num return the value
-        return store_num[(x, y)]
-    else: #if key and value is not in the store_num return following
+    if (x, y) in chaching: # if key and value in chaching return the value
+        return chaching[(x, y)]
+    else: #if key and value is not in the chaching return following
         v = math.pow(x, y)
         v = math.factorial(v)
         v //= (x + y)
         v %= 982451653
          
-        store_num[(x, y)] = v
+        chaching[(x, y)] = v
         
-        return store_num[(x, y)]
+        return chaching[(x, y)]
 
 
 # Do not modify below this line!

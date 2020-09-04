@@ -4,17 +4,17 @@ start_time = time.time()
 
 
 
-store_num = {}
+chaching = {}
 
 def expensive_seq(x, y, z):
     # Your code here
-    if (x, y, z) in store_num:
-        return store_num[(x, y, z)]
+    if (x, y, z) in chaching:
+        return chaching[(x, y, z)]
     elif x <= 0:
         return y + z
     else:
-        store_num[(x, y, z)] = expensive_seq(x-1,y+1,z) + expensive_seq(x-2,y+2,z*2) + expensive_seq(x-3,y+3,z*3)
-        return store_num[(x, y, z)]
+        chaching[(x, y, z)] = expensive_seq(x-1,y+1,z) + expensive_seq(x-2,y+2,z*2) + expensive_seq(x-3,y+3,z*3)
+        return chaching[(x, y, z)]
     
         
 
