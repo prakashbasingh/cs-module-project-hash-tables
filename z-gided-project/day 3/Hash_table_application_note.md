@@ -1,11 +1,15 @@
 The General Problem Hash Tables Solve
 -------------------------------------
-Good at O(1) lookups
-If we have something we want to look up quickly, we can use a hash table
-Especially true if the thing isn't normally quick to look up.
-Can we do this expensive, time-consuming process one time, save the result, and then
-just look it up?
-Identify the time-consuming process.
+- Good at O(1) lookups
+
+- If we have something we want to look up quickly, we can use a hash table
+
+- Especially true if the thing isn't normally quick to look up.
+
+- Can we do this expensive, time-consuming process one time, save the result, and then just look it up?
+
+- Identify the time-consuming process.
+
 The n in O(n)
 -------------
 Do we *need* to optimize this?
@@ -16,6 +20,7 @@ Linear search:
         now we might need to care
     if n < 100000000000000000000000000000000000000000000000:
         now we really need to care
+        
 Other applications of hash tables
 ---------------------------------
 Apply to any time-consuming process

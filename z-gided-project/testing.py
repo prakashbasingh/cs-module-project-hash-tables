@@ -23,7 +23,11 @@ z %= 982451653
 print(z)
 
 
-
-time_interval = time.time() - start_time
+end_time = time.time()
+time_interval = end_time - start_time
 print(start_time)
+print(end_time)
 print(time_interval)
+
+x = random.randrange(2, 14)
+print(x)
